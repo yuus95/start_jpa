@@ -6,12 +6,16 @@ import lombok.Setter;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
-@Entity
+
+// 객체와 테이블을 매핑시킨다.
+@Entity  //JPA가 관리할 객체
 @Getter
 @Setter
 public class Member {
 
-    @Id //pk표시
+
+
+    @Id // 데이터베이스 pk와 매핑
     private Long id;
     private String name;
 
