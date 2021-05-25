@@ -15,37 +15,21 @@ public class hellojpa {
         //엔티티 매니저는 쓰레드간에 공유X (사용하고 버려야 한다)
         EntityManager em = emf.createEntityManager();
 
-        Member member = new Member();
 
         EntityTransaction tx = em.getTransaction();
         tx.begin();
 
         try{
 
-            //전체 회원 조회 -- 검색 쿼리 생성
-            List<Member> result = em.createQuery("select m from Member as m",Member.class)
-                    //.setFirstResult(1) // 페이징기법
-                    //.setMaxResults(10) // 페이징 기법
-                    .getResultList(); // 리스트 가져오는법
-            // 단일 회원 조회
-            Member result2 = em.find(Member.class, 1L);
+            //먼저 DB에서 조회한 뒤 1차 캐시에 저장
+            Member result1 = em.find(Member.class, 1L);
+            System.out.println("1");
 
-            //회원삭제
-            em.remove(result2);
-
-            //엔티티를 영속화 시킨다. (엔티티를 영구 저장하는 환경에 보낸다?)
-            em.persist(result2);
+            // 1차캐시에서 조회
+            Member result2 = em.find(Member.class, 1l);
+            System.out.println("2");
 
 
-            for (Member member1 : result){
-                System.out.println("member.name="+member1.getName());
-            }
-
-//            Member findMember = em.find(Member.class, 1L);
-//            findMember.setName("yushin kim");
-
-//            System.out.println("findMember.id = "+findMember.getId());
-//            System.out.println("findMember.name = "+findMember.getName());
 
 
             tx.commit(); // comit 필수! 커밋을 해야 JPA가 인식을 함
