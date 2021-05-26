@@ -20,17 +20,25 @@ public class hellojpa {
         tx.begin();
 
         try{
+            Team team = new Team();
+            team.setName("TeamA");
 
-            //먼저 DB에서 조회한 뒤 1차 캐시에 저장
-            Member result1 = em.find(Member.class, 1L);
-            System.out.println("1");
+            em.persist(team);
 
-            // 1차캐시에서 조회
-            Member result2 = em.find(Member.class, 1l);
-            System.out.println("2");
+            Member member = new Member();
+            member.setName("member1");
+            member.setTeam(team);
 
+//            DB쿼리 보는법
+//            em.flush(); 영속성 컨테스트에 있는 DB쿼리 DB에 전송
+//            em.clear(); 영속성 컨테스트 초기화
 
-
+            /**
+             * 참조 레퍼런스 변경
+             */
+//            Member member1 = em.find(Member.class, 1);
+//            Team newTeam = new Team();
+//            member1.setTeam(newTeam);
 
             tx.commit(); // comit 필수! 커밋을 해야 JPA가 인식을 함
 
