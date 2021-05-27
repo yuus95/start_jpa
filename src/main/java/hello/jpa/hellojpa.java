@@ -20,14 +20,33 @@ public class hellojpa {
         tx.begin();
 
         try{
-            Team team = new Team();
-            team.setName("TeamA");
+           Team team = new Team();
+           team.setName("TeamA");
+           em.persist(team);
 
-            em.persist(team);
+           Member member = new Member();
+//           member.changeTeam(team);  // 연관관계 메소드 team.getMember를 안써도 된다
+           member.setName("A"); // **
+           em.persist(member);
 
-            Member member = new Member();
-            member.setName("member1");
-            member.setTeam(team);
+           team.addMember(member);
+
+
+
+           //객체지향적으로 양쪽에 데이터를 넣는게 맞다.
+//           team.getMember().add(member); //**
+
+
+           em.flush();
+           em.clear();
+
+           // team1은 순수한 객체상태태
+           Team team1 = em.find(Team.class, team.getId()); // 1차 캐시
+            List<Member> member1 = team1.getMembers();
+
+            for (Member m : member1){
+                System.out.println("member --> " + m.getName());
+            }
 
 //            DB쿼리 보는법
 //            em.flush(); 영속성 컨테스트에 있는 DB쿼리 DB에 전송

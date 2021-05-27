@@ -33,9 +33,14 @@ public class Member {
      * 객체 지향 모델링
      */
     @ManyToOne
-    @JoinColumn(name = "TEAM_ID") // 이관계를 할 떄 조인하는 필드선정
+    @JoinColumn(name ="TEAM_ID") // 관계를 할 떄 조인하는 필드선정
     // 객체지향 설계시 일대다 인지 다대일인지 관계를 알려줘야 한다
     private Team team;
 
+    //연관관계 편의 메소드 --> 양쪽에 값을 설정하는걸 한번에 할 수 있다.
+//    public void changeTeam(Team team){
+//        this.team = team;
+//        team.getMembers().add(this)
+//    }
 
 }
