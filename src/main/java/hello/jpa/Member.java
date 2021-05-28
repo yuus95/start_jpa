@@ -6,7 +6,9 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 
 // 객체와 테이블을 매핑시킨다.
@@ -22,6 +24,9 @@ public class Member {
     @Column(name="USERNAME")
     private String name;
 
+
+    @OneToMany(mappedBy = "member")
+    private List<MemberProduct> memberProductList=  new ArrayList<>();
 
     /**
      * 테이블에 맞추어 모델링
@@ -40,7 +45,7 @@ public class Member {
     //연관관계 편의 메소드 --> 양쪽에 값을 설정하는걸 한번에 할 수 있다.
 //    public void changeTeam(Team team){
 //        this.team = team;
-//        team.getMembers().add(this)
+//        team.getMembers().add(this);
 //    }
 
 }

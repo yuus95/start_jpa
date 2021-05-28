@@ -37,8 +37,8 @@ public class hellojpa {
 //           team.getMember().add(member); //**
 
 
-           em.flush();
-           em.clear();
+//           em.flush();
+//           em.clear();
 
            // team1은 순수한 객체상태태
            Team team1 = em.find(Team.class, team.getId()); // 1차 캐시
