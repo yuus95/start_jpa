@@ -23,29 +23,62 @@ public class hellojpa {
 
         try{
 
+            /**
+             * 임베디드 활용
+             */
+            Member member =new Member();
+            member.setName("Hell");
+
+            member.setHomeAddress(new Address("city","street","zipcode"));
+            member.setWorkPeriod(new Period());
+            em.persist(member);
+
+            /**
+             * cascade
+             */
+//            Parent parent = new Parent();
+//            Child child1 =new Child();
+//            Child child2=new Child();
+//
+//            parent.addChild(child1);
+//            parent.addChild(child2);
+//            em.persist(parent);
+//
+//            em.flush();
+//            em.clear();
+//
+//            Parent findParent = em.find(Parent.class, parent.getId());
+//
+//            findParent.getChildList().remove(0);
+//
 
             /**
              * 프록시 연습
              */
-            Member member1 = new Member();
-            member1.setName("Hello");
-            em.persist(member1);
-
-            Member member2 = new Member();
-            member2.setName("Hello2");
-            em.persist(member2);
-
-
-            em.flush();
-            em.clear();
-
-            Member refMember = em.getReference(Member.class, member1.getId());
-            System.out.println("refMember = " + refMember.getClass());// Proxy
-            refMember.getName(); // 프록시 강제 초기화 
-
+//            Member member1 = new Member();
+//            member1.setName("Hello");
+//            em.persist(member1);
+//
+//            Member member2 = new Member();
+//            member2.setName("Hello2");
+//            em.persist(member2);
+//
+//            em.flush();
+//            em.clear();
+//
+//            Member refMember = em.getReference(Member.class, member1.getId());
+//            System.out.println("refMember = " + refMember.getClass());// Proxy
+//
+//
+//            System.out.println("beFore ==?");
+//            String refName = refMember.getName();// 프록시 강제 초기화
+//            System.out.println("AFTER ===========");
+//
+//            System.out.println("refname==>"+ refName);
             //Hibernate.initialize(refMember); // 강제 초기화
-
-            System.out.println("==> " +emf.getPersistenceUnitUtil().isLoaded(refMember));
+ 
+            //초기화 여부 확인
+//            System.out.println("==> " +emf.getPersistenceUnitUtil().isLoaded(refMember));
 
 
 

@@ -24,6 +24,30 @@ public class Member {
     @Column(name="USERNAME")
     private String name;
 
+// 둘중 하나만 사용해도 되지만 둘다 사용하기
+//  @Embedded
+//  @Embeddable
+
+    //기간 Period
+    @Embedded
+    private Period workPeriod;
+
+    // 주소
+    @Embedded
+    private Address homeAddress;
+
+  //  @AttrbuteOverride:속성 사용법 -> 위에 address클래스를 사용하고 한번 더 사용 할 경우
+    //직장주소
+//    @Embedded
+//    @AttributeOverrides(
+//        @AttributeOverride(name="city",
+//            column = @Column(name = "WORK_CITY")),
+//        @AttributeOverride(name="street",
+//            column = @Column(name = "WORK_STREET")),
+//        @AttributeOverride(name="zipcode",
+//            column = @Column(name = "WORK_ZIPCODE"))
+//    )
+//    private Address workAddress;
 
     @OneToMany(mappedBy = "member")
     private List<MemberProduct> memberProductList=  new ArrayList<>();
@@ -47,5 +71,7 @@ public class Member {
 //        this.team = team;
 //        team.getMembers().add(this);
 //    }
+
+
 
 }
