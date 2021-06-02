@@ -1,12 +1,11 @@
 package hello.jpa;
 
-import org.hibernate.Hibernate;
-
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import java.util.List;
+import java.util.Set;
 
 public class hellojpa {
     public static void main(String[] args){
@@ -21,17 +20,48 @@ public class hellojpa {
         EntityTransaction tx = em.getTransaction();
         tx.begin();
 
+
         try{
+//            /**
+//             * 값 타입 컬렉션  저장- 일대다로 하기
+//             */
+//            Member member = new Member();
+//            member.setName("하위");
+//            member.setHomeAddress(new Address("homeCity","sohaStreet","1000"));
+//
+//            member.getAddressList().add(new AddressEntity("oldCity1","sohaStreet","1000"));
+//            member.getAddressList().add(new AddressEntity("oldCity2","sohaStreet","1000"));
+//
+//
+//            em.persist(member);
+//
+//
+//            em.flush();
+//            em.clear();
+
+
+
+
+
+            /**
+             * 값타입 비교
+             */
+
+//            Address address1 = new Address("city","seoul","zz");
+//            Address address2 = new Address("city","seoul","zz");
+//
+//            //True
+//            System.out.println("address.eqault() ==> " + address1.equals(address2));
 
             /**
              * 임베디드 활용
              */
-            Member member =new Member();
-            member.setName("Hell");
-
-            member.setHomeAddress(new Address("city","street","zipcode"));
-            member.setWorkPeriod(new Period());
-            em.persist(member);
+//            Member member =new Member();
+//            member.setName("Hell");
+//
+//            member.setHomeAddress(new Address("city","street","zipcode"));
+//            member.setWorkPeriod(new Period());
+//            em.persist(member);
 
             /**
              * cascade

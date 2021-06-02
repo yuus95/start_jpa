@@ -6,9 +6,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 
 // 객체와 테이블을 매핑시킨다.
@@ -36,6 +34,28 @@ public class Member {
     @Embedded
     private Address homeAddress;
 
+
+    /**
+     * 값 타입 컬렉션  잘안쓰임 일대다로 바꿔쓰기
+     */
+//    @ElementCollection
+//    @CollectionTable(name="FAVORITE_FOOD",
+//            joinColumns = @JoinColumn(name="MEMBER_ID"))
+//    @Column(name ="FOOD_NAME")
+//    private Set<String> favoriteFoods=new HashSet<>();
+//
+//    @ElementCollection
+//    @CollectionTable(name="ADDRESS",joinColumns =
+//    @JoinColumn(name= "MEMBER_ID"))
+//    private List<Address> addressHistory =new ArrayList<>()
+
+      @OneToMany(cascade = CascadeType.ALL,orphanRemoval = true)
+      @JoinColumn(name="MEMBER_ID")
+      private List<AddressEntity>  AddressList = new ArrayList<>();
+
+
+
+
   //  @AttrbuteOverride:속성 사용법 -> 위에 address클래스를 사용하고 한번 더 사용 할 경우
     //직장주소
 //    @Embedded
@@ -61,7 +81,7 @@ public class Member {
     /**
      * 객체 지향 모델링
      */
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name ="TEAM_ID") // 관계를 할 떄 조인하는 필드선정
     // 객체지향 설계시 일대다 인지 다대일인지 관계를 알려줘야 한다
     private Team team;
