@@ -22,6 +22,8 @@ public class Member {
     @Column(name="USERNAME")
     private String name;
 
+
+    private int age;
 // 둘중 하나만 사용해도 되지만 둘다 사용하기
 //  @Embedded
 //  @Embeddable
@@ -93,5 +95,12 @@ public class Member {
 //    }
 
 
-
+    @Override
+    public String toString() {
+        return "Member{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", age=" + age +
+                '}';
+    }
 }

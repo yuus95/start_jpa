@@ -1,9 +1,6 @@
 package hello.jpa;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
-import javax.persistence.Persistence;
+import javax.persistence.*;
 import java.util.List;
 import java.util.Set;
 
@@ -22,6 +19,65 @@ public class hellojpa {
 
 
         try{
+
+
+            /**
+             * TypeQuery, Query
+             *
+             * TypeQuery : 반환 타입이 병확할 떄 사용
+             * Query : 반환 타입이 명확하지 않을 떄 사용 (name,age)
+             */
+
+            Team team = new Team();
+            team.setName("TeamA'");
+            em.persist(team);
+
+
+            Member member1 = new Member();
+            member1.setName("Hello");
+            member1.setAge(10);
+
+            em.persist(member1);
+
+            team.addMember(member1);
+
+            em.flush();
+            em.clear();
+
+            //파라미터 바인딩
+            List<Member> resultList = em.createQuery("Select  m from Member m where m.name =:named", Member.class)
+                    .setParameter("named", "Hello")
+                    .getResultList();
+
+            for (Member m : resultList){
+                System.out.println("===>  "+ m.getName());
+            }
+            
+            
+            //여러 값 선택시 query사용
+            List<Object[]> resultList1 = em.createQuery("Select m.age,m.name from Member m ", Object[].class).getResultList();
+
+            for (Object[] o :resultList1){
+                System.out.println("age ==> " + (Integer) o[0]);
+                System.out.println("name ==> " + (String)o[1]);
+            }
+
+
+//            em.createQuery("Select m,t from Member m join m.team t ")
+
+
+            //Query
+//            Query query = em.createQuery("select m.age,m.name from Member m");
+//            List resultList = query.getResultList();
+//
+//            for (Object o : resultList){
+//                    Object[] result = (Object[]) o;
+//                    System.out.println("name"+ result[1]);
+//                    System.out.println("age" + result[0]);
+//
+//            }
+            System.out.println("====================================================");
+
 //            /**
 //             * 값 타입 컬렉션  저장- 일대다로 하기
 //             */
@@ -106,7 +162,7 @@ public class hellojpa {
 //
 //            System.out.println("refname==>"+ refName);
             //Hibernate.initialize(refMember); // 강제 초기화
- 
+
             //초기화 여부 확인
 //            System.out.println("==> " +emf.getPersistenceUnitUtil().isLoaded(refMember));
 
