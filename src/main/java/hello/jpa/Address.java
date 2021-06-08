@@ -13,8 +13,10 @@ import java.util.Objects;
 public class Address {
 
     private String city;
-    protected Address(){
 
+
+    //임베디드 타입 기본생성자 필수
+    protected Address(){
     }
 
     public Address(String city, String street, String zipcode) {
